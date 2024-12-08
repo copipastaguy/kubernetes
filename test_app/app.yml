@@ -1,0 +1,51 @@
+kind: Namespace
+apiVersion: v1
+metadata:
+  name: test
+---
+kind: Pod
+apiVersion: v1
+metadata:
+  name: foo-app
+  namespace: test
+  labels:
+    app: foo
+spec:
+  containers:
+    - name: foo-app
+      image: 'kicbase/echo-server:1.0'
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: foo-service
+  namespace: test
+spec:
+  selector:
+    app: foo
+  ports:
+    - port: 8080
+---
+kind: Pod
+apiVersion: v1
+metadata:
+  name: bar-app
+  namespace: test
+  labels:
+    app: bar
+spec:
+  containers:
+    - name: bar-app
+      image: 'kicbase/echo-server:1.0'
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: bar-service
+  namespace: test
+spec:
+  selector:
+    app: bar
+  ports:
+    - port: 8080
+---
